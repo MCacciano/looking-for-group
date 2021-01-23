@@ -9,10 +9,8 @@ const App = () => {
       try {
         const { data } = await acnhApi.get('/villagers');
         console.log('data :>> ', data);
-        const sorted = data.sort((a, b) =>
-          a.name['name-USen'].localeCompare(b.name['name-USen'], 'en')
-        );
-        setVillagers(sorted);
+        data.sort((a, b) => a.name['name-USen'].localeCompare(b.name['name-USen'], 'en'));
+        setVillagers(data);
       } catch (err) {
         console.error(err);
       }
@@ -29,6 +27,7 @@ const App = () => {
         {villagers.map(({ name, icon_uri, image_uri }) => (
           <div className='flex flex-col items-center border border-gray-500 rounded shadow p-2 bg-gray-100'>
             <div>
+              <img src={image_uri} />
               <img src={icon_uri} />
             </div>
             <h2>{name['name-USen']}</h2>
