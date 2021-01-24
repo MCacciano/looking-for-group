@@ -1,15 +1,18 @@
-import { signInWithGoogle } from '../../firebase';
+import { Redirect } from 'react-router-dom';
+import LoginForm from '../../components/LoginForm';
+import SignUpform from '../../components/SignUpForm';
 
 const Login = () => {
-  return (
-    <div>
-      <button
-        type='button'
-        onClick={signInWithGoogle}
-        className='text-white border border-black bg-blue-600 cursor-pointer shadow p-2 mr-6 rounded'
-      >
-        Sign In With Google
-      </button>
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  return user ? (
+    <Redirect to='/' />
+  ) : (
+    <div className='absolute inset-0 w-screen h-screen'>
+      <div>
+        <LoginForm className='my-4 md:my-0  ' />
+        <SignUpform className='my-4 md:my-0 ' />
+      </div>
     </div>
   );
 };

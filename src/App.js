@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { auth } from './firebase';
+import { auth, createUserProfileDocument } from './firebase';
 
 import useGlobalContext from './hooks/useGlobalContext';
 
@@ -19,11 +19,20 @@ const App = () => {
 
     if (user) setUser(user);
 
-    const unsub = auth.onAuthStateChanged(authUser => {
+    const unsub = auth.onAuthStateChanged(async authUser => {
       if (authUser) {
-        const { displayName, email, uid } = authUser;
+        try {
+          const userRef = await createUserProfileDocument(authUser);
 
-        setUser({ displayName: displayName || email, email, uid });
+          userRef.onSnapshot(snapShot => {
+            setUser({
+              id: snapShot.id,
+              ...snapShot.data()
+            });
+          });
+        } catch (err) {
+          console.error(err);
+        }
       } else {
         localStorage.removeItem('user');
         setUser(null);

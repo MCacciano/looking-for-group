@@ -5,7 +5,7 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
-    <nav className='sticky top-0 flex justify-center p-4 border-b border-black z-50'>
+    <nav className='sticky top-0 flex justify-center p-4 border-b border-black bg-white z-50'>
       <div className='flex justify-between w-full max-w-screen-xl'>
         <h1 className='text-3xl font-medium cursor-pointer'>
           <NavLink to='/'>
