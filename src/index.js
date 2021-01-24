@@ -5,7 +5,7 @@ import firebase from './firebase';
 
 import GlobalContextProvider from './context/global';
 
-import './tailwind.css';
+import './index.css';
 
 import App from './App';
 

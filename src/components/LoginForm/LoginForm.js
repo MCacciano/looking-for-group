@@ -60,7 +60,7 @@ const LoginForm = ({ className = '' }) => {
         <button
           type='button'
           onClick={signInWithGoogle}
-          className='text-white border border-black bg-red-600 p-1 my-1 cursor-pointer shadow rounded font-normal'
+          className='text-white border border-black bg-red-700 p-1 my-1 cursor-pointer shadow rounded font-normal'
         >
           Sign In With Google
         </button>

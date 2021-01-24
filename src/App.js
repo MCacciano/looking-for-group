@@ -44,13 +44,13 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <div className='flex flex-col h-0 min-h-screen'>
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/' login component={Login} />
       </Switch>
-    </>
+    </div>
   );
 };
 

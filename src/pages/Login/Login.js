@@ -8,10 +8,10 @@ const Login = () => {
   return user ? (
     <Redirect to='/' />
   ) : (
-    <div className='absolute inset-0 w-screen h-screen'>
-      <div>
-        <LoginForm className='my-4 md:my-0  ' />
-        <SignUpform className='my-4 md:my-0 ' />
+    <div className='w-full h-full flex flex-col md:flex-row justify-center items-center'>
+      <div className='w-full max-w-screen-lg flex justify-around'>
+        <LoginForm className='my-4 md:my-0' />
+        <SignUpform className='my-4 md:my-0' />
       </div>
     </div>
   );
