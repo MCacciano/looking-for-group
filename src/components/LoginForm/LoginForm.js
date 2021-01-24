@@ -2,11 +2,15 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { auth, signInWithGoogle } from '../../firebase';
 
-const LoginForm = ({ className = '' }) => {
+const LoginForm = ({ className = '', onToggleForm }) => {
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: ''
   });
+
+  const handleToggleForm = () => {
+    if (onToggleForm) onToggleForm();
+  };
 
   const handleOnChange = e => {
     const { name, value } = e.currentTarget;
@@ -64,6 +68,18 @@ const LoginForm = ({ className = '' }) => {
         >
           Sign In With Google
         </button>
+      </div>
+      <div className='text-sm'>
+        <p>
+          Need an account?&nbsp;
+          <button
+            type='button'
+            onClick={handleToggleForm}
+            className='outline-none text-blue-600'
+          >
+            Sign up!
+          </button>
+        </p>
       </div>
     </form>
   );

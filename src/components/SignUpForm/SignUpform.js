@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { auth, createUserProfileDocument } from '../../firebase';
+import {
+  auth,
+  createUserProfileDocument,
+  signInWithGoogle
+} from '../../firebase';
 
-const SignUpform = ({ className = '' }) => {
+const SignUpform = ({ className = '', onToggleForm }) => {
   const [signUpForm, setSignUpform] = useState({
     displayName: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+
+  const handleToggleForm = () => {
+    if (onToggleForm) onToggleForm();
+  };
 
   const handleOnChange = e => {
     const { name, value } = e.currentTarget;
@@ -90,9 +98,25 @@ const SignUpform = ({ className = '' }) => {
         >
           Sign Up
         </button>
-        <button type='button' className='invisible'>
+        <button
+          type='button'
+          onClick={signInWithGoogle}
+          className='text-white border border-black bg-red-700 p-1 my-1 cursor-pointer shadow rounded font-normal'
+        >
           Sign In With Google
         </button>
+      </div>
+      <div className='text-sm'>
+        <p>
+          Have an account?&nbsp;
+          <button
+            type='button'
+            onClick={handleToggleForm}
+            className='outline-none text-blue-600'
+          >
+            Sign In!
+          </button>
+        </p>
       </div>
     </form>
   );
