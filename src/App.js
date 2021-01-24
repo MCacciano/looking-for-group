@@ -1,15 +1,33 @@
 import { useEffect, useState } from 'react';
 import acnhApi from './axios/acnhApi';
 import { auth, signInWithGoogle } from './firebase';
+import useGlobalContext from './hooks/useGlobalContext';
 
 const App = () => {
-  const [user, setUser] = useState(null);
-  const [villagers, setVillagers] = useState([]);
+  const { user, allVillagers, setUser, setAllVillagers } = useGlobalContext();
 
   useEffect(() => {
+    const getVillagers = async () => {
+      try {
+        const { data } = await acnhApi.get('/villagers');
+
+        data.sort((a, b) => {
+          return a.name['name-USen'].localeCompare(b.name['name-USen'], 'en');
+        });
+
+        setAllVillagers(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getVillagers();
+
     const unsub = auth.onAuthStateChanged(authUser => {
       if (authUser) {
-        console.log('authUser :>> ', authUser);
+        const { displayName, email, uid } = authUser;
+
+        setUser({ displayName: displayName || email, email, uid });
       } else {
         setUser(null);
       }
@@ -18,22 +36,9 @@ const App = () => {
     return unsub;
   }, []);
 
-  // useEffect(() => {
-  //   const getVillagers = async () => {
-  //     try {
-  //       const { data } = await acnhApi.get('/villagers');
-  //       console.log('data :>> ', data);
-  //       data.sort((a, b) => a.name['name-USen'].localeCompare(b.name['name-USen'], 'en'));
-  //       setVillagers(data);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   getVillagers();
-
-  //   return null;
-  // }, []);
+  useEffect(() => {
+    console.log('user :>> ', user);
+  }, [user]);
 
   return (
     <div className='m-4'>
@@ -52,8 +57,11 @@ const App = () => {
         Logout
       </button>
       <ul className='grid grid-cols-4 gap-6 list-none'>
-        {villagers.map(({ name, icon_uri, image_uri }) => (
-          <li className='flex flex-col items-center border border-gray-500 rounded shadow p-2 bg-gray-100'>
+        {allVillagers.map(({ name, icon_uri, image_uri }) => (
+          <li
+            key={name['name-USen']}
+            className='flex flex-col items-center border border-gray-500 rounded shadow p-2 bg-gray-100'
+          >
             <div>
               <img src={icon_uri} />
             </div>
