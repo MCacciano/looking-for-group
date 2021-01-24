@@ -1,27 +1,23 @@
-import { useEffect, useState } from 'react';
-import acnhApi from './axios/acnhApi';
-import { auth, signInWithGoogle } from './firebase';
+import { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { auth } from './firebase';
+
 import useGlobalContext from './hooks/useGlobalContext';
 
+// components
+import Navbar from './components/Navbar/Navbar';
+
+// pages
+import Home from './pages/Home';
+import Login from './pages/Login';
+
 const App = () => {
-  const { user, allVillagers, setUser, setAllVillagers } = useGlobalContext();
+  const { setUser } = useGlobalContext();
 
   useEffect(() => {
-    const getVillagers = async () => {
-      try {
-        const { data } = await acnhApi.get('/villagers');
+    const user = JSON.parse(localStorage.getItem('user'));
 
-        data.sort((a, b) => {
-          return a.name['name-USen'].localeCompare(b.name['name-USen'], 'en');
-        });
-
-        setAllVillagers(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getVillagers();
+    if (user) setUser(user);
 
     const unsub = auth.onAuthStateChanged(authUser => {
       if (authUser) {
@@ -29,47 +25,23 @@ const App = () => {
 
         setUser({ displayName: displayName || email, email, uid });
       } else {
+        localStorage.removeItem('user');
         setUser(null);
       }
     });
 
     return unsub;
+    // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    console.log('user :>> ', user);
-  }, [user]);
-
   return (
-    <div className='m-4'>
-      <button
-        type='button'
-        onClick={signInWithGoogle}
-        className='text-white border border-black bg-blue-600 cursor-pointer shadow p-2 mr-6 rounded'
-      >
-        Sign In With Google
-      </button>
-      <button
-        type='button'
-        onClick={() => auth.signOut()}
-        className='text-white border border-black bg-red-600 cursor-pointer shadow p-2 rounded'
-      >
-        Logout
-      </button>
-      <ul className='grid grid-cols-4 gap-6 list-none'>
-        {allVillagers.map(({ name, icon_uri, image_uri }) => (
-          <li
-            key={name['name-USen']}
-            className='flex flex-col items-center border border-gray-500 rounded shadow p-2 bg-gray-100'
-          >
-            <div>
-              <img src={icon_uri} />
-            </div>
-            <h2>{name['name-USen']}</h2>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Navbar />
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/' login component={Login} />
+      </Switch>
+    </>
   );
 };
 
