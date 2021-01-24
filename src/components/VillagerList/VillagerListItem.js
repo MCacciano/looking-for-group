@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 
 const VillagerListItem = ({ villager }) => {
-  const { name, icon_uri } = villager;
+  const { name, icon_uri, image_uri } = villager;
 
   // console.log('villager :>> ', villager);
 
   return (
-    <li className='flex flex-col items-center border border-gray-400 bg-gray-100 rounded shadow'>
+    <li
+      style={{ backgroundColor: '#fafafa' }}
+      className='flex flex-col items-center border border-gray-400 rounded shadow'
+    >
       <img src={icon_uri} alt='villager icon' />
       <h1 className='font-yuseiMagic'>{name['name-USen']}</h1>
     </li>

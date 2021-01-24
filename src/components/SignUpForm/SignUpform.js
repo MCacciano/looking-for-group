@@ -39,13 +39,14 @@ const SignUpform = ({ className = '' }) => {
       <div className='flex justify-center my-4'>
         <h1 className='text-3xl font-medium'>Sign Up</h1>
       </div>
-      <label htmlFor='displayName' className='flex flex-col mb-1'>
+      <label htmlFor='sign_up_displayName' className='flex flex-col mb-1'>
         Display Name:
         <input
           className={inputClasses}
           type='text'
           name='displayName'
-          id='displayName'
+          id='sign_up_displayName'
+          value={signUpForm.displayName}
           onChange={handleOnChange}
         />
       </label>
@@ -54,8 +55,9 @@ const SignUpform = ({ className = '' }) => {
         <input
           className={inputClasses}
           type='email'
-          name='sign_up_email'
+          name='email'
           id='sign_up_email'
+          value={signUpForm.email}
           onChange={handleOnChange}
         />
       </label>
@@ -64,8 +66,20 @@ const SignUpform = ({ className = '' }) => {
         <input
           className={inputClasses}
           type='password'
-          name='sign_up_password'
+          name='password'
           id='sign_up_password'
+          value={signUpForm.password}
+          onChange={handleOnChange}
+        />
+      </label>
+      <label htmlFor='sign_up_confirm_password' className='flex flex-col mb-1'>
+        Confirm Password:
+        <input
+          className={inputClasses}
+          type='password'
+          name='confirmPassword'
+          id='sign_up_confirm_password'
+          value={signUpForm.confirmPassword}
           onChange={handleOnChange}
         />
       </label>
