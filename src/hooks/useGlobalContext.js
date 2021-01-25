@@ -5,8 +5,10 @@ const useGlobalContext = () => {
   const state = useGlobalState();
   const dispatch = useGlobalDispatch();
 
-  const setUser = user => {
-    localStorage.setItem('user', JSON.stringify(user));
+  const setUser = (user = null) => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user.id));
+    }
     dispatch({ type: SET_USER, payload: user });
   };
 
