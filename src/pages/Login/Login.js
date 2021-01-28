@@ -9,7 +9,7 @@ const Login = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   return user ? (
-    <Redirect to='/' />
+    <Redirect to='/dashboard' />
   ) : (
     <div className='w-full h-full flex flex-col md:flex-row justify-center items-center'>
       <div className='w-full max-w-screen-lg flex justify-around'>

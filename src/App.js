@@ -10,6 +10,7 @@ import Navbar from './components/Navbar/Navbar';
 // pages
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
 const App = () => {
   const { setUser } = useGlobalContext();
@@ -45,6 +46,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
+        <Route path='/dashboard' component={Dashboard} />
       </Switch>
     </div>
   );

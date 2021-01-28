@@ -8873,7 +8873,7 @@ request-promise-core@1.1.4:
   dependencies:
     lodash "^4.17.19"
 
-request-promise-native@^1.0.8:
+request-promise-native@^1.0.5, request-promise-native@^1.0.8:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/request-promise-native/-/request-promise-native-1.0.9.tgz#e407120526a5efdc9a39b28a5679bf47b9d9dc28"
   dependencies:
@@ -8881,7 +8881,7 @@ request-promise-native@^1.0.8:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.88.2:
+request@^2.88.0, request@^2.88.2:
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   dependencies:
@@ -10706,6 +10706,13 @@ ws@^6.2.1:
 ws@^7.2.3:
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.0.tgz#a5dd76a24197940d4a8bb9e0e152bb4503764da7"
+
+xivapi-js@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xivapi-js/-/xivapi-js-0.3.0.tgz#3dc27994c72bb55853e1befd487f9c0cdff22bab"
+  dependencies:
+    request "^2.88.0"
+    request-promise-native "^1.0.5"
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
