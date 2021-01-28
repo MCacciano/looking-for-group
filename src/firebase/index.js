@@ -2,6 +2,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+import defaultUserIcon from '../assets/images/default-user-icon-2.jpg';
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -34,6 +36,7 @@ export const createUserProfileDocument = async (
         displayName: displayName || email,
         email,
         createdAt,
+        avatar: defaultUserIcon,
         ...additionalData
       });
     } catch (err) {

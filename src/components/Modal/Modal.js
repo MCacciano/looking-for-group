@@ -1,0 +1,40 @@
+import PropTypes from 'prop-types';
+import { createPortal } from 'react-dom';
+
+const Modal = ({ show, onClose, className, children }) => {
+  const DOM = (
+    <div className='absolute inset-0 h-screen w-screen bg-black bg-opacity-50 flex justify-center items-center'>
+      <div className={`flex bg-white border border-black rounded shadow-md`}>
+        <div className={`flex-1 ${className}`}>{children}</div>
+        <div className='flex items-start'>
+          <div className='m-1 rounded cursor-pointer border hover:shadow hover:border-black'>
+            <button
+              type='button'
+              onClick={onClose}
+              className='text-lg px-2 font-medium font-rubik hover:text-red-600 opacity-70 hover:opacity-100'
+            >
+              X
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return show ? createPortal(DOM, document.getElementById('modal')) : null;
+};
+
+Modal.defaultProps = {
+  width: '',
+  height: '',
+  className: '',
+  show: false
+};
+
+Modal.propTypes = {
+  width: PropTypes.string,
+  height: PropTypes.string,
+  show: PropTypes.bool
+};
+
+export default Modal;

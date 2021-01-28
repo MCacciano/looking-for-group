@@ -7,7 +7,10 @@ const useGlobalContext = () => {
 
   const setUser = (user = null) => {
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user.id));
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ id: user.id, avatar: user.avatar })
+      );
     }
     dispatch({ type: SET_USER, payload: user });
   };

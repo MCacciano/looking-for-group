@@ -1,8 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { auth } from '../../firebase';
-
-import defaultUser from '../../images/default-user-icon-2.jpg';
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -11,6 +9,10 @@ const Navbar = () => {
   const signOut = () => {
     auth.signOut();
   };
+
+  useEffect(() => {
+    console.log('user', user);
+  }, [user]);
 
   return (
     <nav className='sticky top-0 flex justify-center p-4 border-b border-black bg-white z-50'>
@@ -30,7 +32,7 @@ const Navbar = () => {
               <img
                 onClick={() => setIsOpen(prev => !prev)}
                 className='w-full h-full'
-                src={defaultUser}
+                src={user.avatar}
               />
               {isOpen ? (
                 <ul
