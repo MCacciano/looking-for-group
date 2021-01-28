@@ -1,6 +1,5 @@
 const initialState = {
-  user: null,
-  allVillagers: []
+  user: null
 };
 
 export default initialState;

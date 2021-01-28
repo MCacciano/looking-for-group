@@ -7,11 +7,6 @@ const globalContextReducer = (state, { type, payload }) => {
         ...state,
         user: payload
       };
-    case SET_ALL_VILLAGERS:
-      return {
-        ...state,
-        allVillagers: payload
-      };
     default:
       throw new Error('There is no action with that type');
   }

@@ -9,22 +9,11 @@ const Navbar = () => {
       <div className='flex justify-between w-full max-w-screen-xl'>
         <h1 className='text-3xl font-medium cursor-pointer font-roboto'>
           <NavLink to='/'>
-            <span className='font-medium' style={{ color: '#49A633' }}>
-              N
-            </span>
-            <span className='font-light'>ook</span>
-            <span className='font-medium' style={{ color: '#49A633' }}>
-              B
-            </span>
-            <span className='font-light'>ook</span>
+            <span className='font-medium text-blue-600'>LFG</span>
+            <span className='font-light'>roup</span>
           </NavLink>
         </h1>
         <ul className='flex justify-end items-center cursor-pointer font-roboto'>
-          <li className='mx-2'>
-            <NavLink to='/villagers' activeClassName='font-bold'>
-              Villagers
-            </NavLink>
-          </li>
           {user ? (
             <li className='mx-2'>
               <button type='button' onClick={() => auth.signOut()}>

@@ -1,4 +1,4 @@
-import { SET_USER, SET_ALL_VILLAGERS } from '../context/global/types';
+import { SET_USER } from '../context/global/types';
 import { useGlobalState, useGlobalDispatch } from '../context/global';
 
 const useGlobalContext = () => {
@@ -12,11 +12,7 @@ const useGlobalContext = () => {
     dispatch({ type: SET_USER, payload: user });
   };
 
-  const setAllVillagers = villagers => {
-    dispatch({ type: SET_ALL_VILLAGERS, payload: villagers });
-  };
-
-  return { state, ...state, setUser, setAllVillagers };
+  return { state, ...state, setUser };
 };
 
 export default useGlobalContext;
