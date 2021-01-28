@@ -1,1 +1,1 @@
-Side project using CRA, Tailwindcss, and ACNHAPI
+Side project using CRA, Tailwindcss and Firebase
