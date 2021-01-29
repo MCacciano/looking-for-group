@@ -34,6 +34,7 @@ Modal.defaultProps = {
 Modal.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
+  className: PropTypes.string,
   show: PropTypes.bool
 };
 

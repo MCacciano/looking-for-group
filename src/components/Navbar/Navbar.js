@@ -6,6 +6,10 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleOpen = () => {
+    setIsOpen(prev => !prev);
+  };
+
   const signOut = () => {
     auth.signOut();
   };
@@ -26,18 +30,15 @@ const Navbar = () => {
         <div className='font-roboto'>
           {user ? (
             <div className='flex flex-col h-10 w-10 rounded-full shadow cursor-pointer'>
-              {/* <NavLink to='/dashboard' activeClassName='font-bold'>
-                <img className='w-full h-full' src={defaultUser} />
-              </NavLink> */}
               <img
-                onClick={() => setIsOpen(prev => !prev)}
+                onClick={toggleOpen}
                 className='w-full h-full'
                 src={user.avatar}
               />
               {isOpen ? (
                 <ul
                   className='absolute top-14 right-2 border-2 border-black mt-4 w-1/6'
-                  onClick={() => setIsOpen(prev => !prev)}
+                  onClick={toggleOpen}
                 >
                   <li className='border-b border-black'>
                     <NavLink
