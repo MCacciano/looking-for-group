@@ -11,6 +11,7 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import AuthRoute from './components/AuthRoute/AuthRoute';
 
 const App = () => {
   const { setUser } = useGlobalContext();
@@ -46,7 +47,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
-        <Route path='/dashboard' component={Dashboard} />
+        <AuthRoute path='/dashboard' component={Dashboard} />
       </Switch>
     </div>
   );
