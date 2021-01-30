@@ -5,15 +5,17 @@ import { auth, createUserProfileDocument } from './firebase';
 import useGlobalContext from './hooks/useGlobalContext';
 
 // components
+import AuthRoute from './components/AuthRoute';
 import Navbar from './components/Navbar/Navbar';
 
 // pages
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import AuthRoute from './components/AuthRoute/AuthRoute';
+import Players from './pages/Players';
 
 const App = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
   const { setUser } = useGlobalContext();
 
   useEffect(() => {
@@ -47,7 +49,8 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
-        <AuthRoute path='/dashboard' component={Dashboard} />
+        <AuthRoute isAuth={user} path='/players' component={Players} />
+        <AuthRoute isAuth={user} path='/dashboard' component={Dashboard} />
       </Switch>
     </div>
   );

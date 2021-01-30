@@ -1,20 +1,11 @@
-import { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import useGlobalContext from '../../hooks/useGlobalContext';
-
-const AuthRoute = ({ component: Component, ...rest }) => {
-  const { user } = useGlobalContext();
-
-  useEffect(() => {
-    console.log('user :>> ', user);
-  }, [user]);
-
+const AuthRoute = ({ isAuth = false, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props => {
-        return user ? (
+        return isAuth ? (
           <Component {...props} />
         ) : (
           <Redirect

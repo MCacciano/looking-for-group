@@ -6,6 +6,7 @@ import SignUpform from '../../components/SignUpForm';
 
 const Login = () => {
   const [showLogin, setShowLogin] = useState(true);
+
   const user = JSON.parse(localStorage.getItem('user'));
 
   return user ? (

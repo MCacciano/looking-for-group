@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { auth } from '../../firebase';
 
@@ -13,10 +13,6 @@ const Navbar = () => {
   const signOut = () => {
     auth.signOut();
   };
-
-  useEffect(() => {
-    console.log('user', user);
-  }, [user]);
 
   return (
     <nav className='sticky top-0 flex justify-center p-4 border-b border-black bg-white font-roboto z-50'>
@@ -36,7 +32,7 @@ const Navbar = () => {
             />
             {isOpen ? (
               <ul
-                className='absolute top-14 right-2 border-2 border-black mt-4 w-1/6'
+                className='absolute top-14 right-2 bg-white border-2 border-black mt-4 w-1/6'
                 onClick={toggleOpen}
               >
                 <li className='border-b border-black'>
@@ -46,6 +42,15 @@ const Navbar = () => {
                     activeClassName='font-bold bg-black text-white'
                   >
                     Dashboard
+                  </NavLink>
+                </li>
+                <li className='border-b border-black'>
+                  <NavLink
+                    to='/players'
+                    className='p-2 block h-full'
+                    activeClassName='font-bold bg-black text-white'
+                  >
+                    Players
                   </NavLink>
                 </li>
                 <li>
@@ -63,7 +68,7 @@ const Navbar = () => {
         ) : (
           <NavLink
             to='/login'
-            className='flex items-center mx-2 text-lg'
+            className='flex h-full items-center mx-2 text-lg'
             activeClassName='font-bold'
           >
             Login

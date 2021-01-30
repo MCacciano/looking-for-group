@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
+// TODO: Add click outside to close functionality
+
 const Modal = ({ show, onClose, className, children }) => {
   const DOM = (
     <div className='absolute inset-0 h-screen w-screen bg-black bg-opacity-50 flex justify-center items-center'>
