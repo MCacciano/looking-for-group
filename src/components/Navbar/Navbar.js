@@ -32,7 +32,7 @@ const Navbar = () => {
             />
             {isOpen ? (
               <ul
-                className='absolute top-14 right-2 bg-white border-2 border-black mt-4 w-1/6'
+                className='absolute top-14 right-2 bg-white border-2 border-black mt-4 w-1/6 min-w-max'
                 onClick={toggleOpen}
               >
                 <li className='border-b border-black'>
