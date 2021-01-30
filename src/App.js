@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { auth, createUserProfileDocument } from './firebase';
 
+import useXivApi from './hooks/useXivApi';
 import useGlobalContext from './hooks/useGlobalContext';
 
 // components
@@ -16,9 +17,27 @@ import Players from './pages/Players';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const { setUser } = useGlobalContext();
+  const { setUser, setServers } = useGlobalContext();
+  const { xivapi } = useXivApi();
 
   useEffect(() => {
+    const getServerList = async () => {
+      try {
+        const data = await xivapi.data.servers();
+        // for some reason there are a few doubles in the list so remove them
+        const uniqueServers = [...new Set(data)];
+        // sort servers alphabetically
+        const sortedServers = uniqueServers.sort((acc, cur) =>
+          acc.localeCompare(cur)
+        );
+        setServers(sortedServers);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getServerList();
+
     const unsub = auth.onAuthStateChanged(async authUser => {
       if (authUser) {
         try {

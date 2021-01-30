@@ -1,5 +1,6 @@
 const initialState = {
-  user: null
+  user: null,
+  servers: []
 };
 
 export default initialState;

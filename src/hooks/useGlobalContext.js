@@ -1,4 +1,4 @@
-import { SET_USER } from '../context/global/types';
+import { SET_SERVERS, SET_USER } from '../context/global/types';
 import { useGlobalState, useGlobalDispatch } from '../context/global';
 
 const useGlobalContext = () => {
@@ -15,7 +15,11 @@ const useGlobalContext = () => {
     dispatch({ type: SET_USER, payload: user });
   };
 
-  return { state, ...state, setUser };
+  const setServers = servers => {
+    dispatch({ type: SET_SERVERS, payload: servers });
+  };
+
+  return { state, ...state, setUser, setServers };
 };
 
 export default useGlobalContext;

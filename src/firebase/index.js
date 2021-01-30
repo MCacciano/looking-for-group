@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { v4 as UUIDv4 } from 'uuid';
 
 import defaultUserIcon from '../assets/images/default-user-icon-2.jpg';
 
@@ -37,6 +38,7 @@ export const createUserProfileDocument = async (
         email,
         createdAt,
         avatar: defaultUserIcon,
+        characterConnectCode: UUIDv4(),
         ...additionalData
       });
     } catch (err) {
