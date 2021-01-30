@@ -1,4 +1,4 @@
-import { SET_USER, SET_ALL_VILLAGERS } from './types';
+import { SET_USER } from './types';
 
 const globalContextReducer = (state, { type, payload }) => {
   switch (type) {
