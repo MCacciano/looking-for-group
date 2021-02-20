@@ -16,63 +16,67 @@ import Dashboard from './pages/Dashboard';
 import Players from './pages/Players';
 
 const App = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const { setUser, setServers } = useGlobalContext();
-  const { xivapi } = useXivApi();
+    const user = JSON.parse(localStorage.getItem('user'));
+    const { setUser, setServers } = useGlobalContext();
+    const { xivapi } = useXivApi();
 
-  useEffect(() => {
-    const getServerList = async () => {
-      try {
-        const data = await xivapi.data.servers();
-        // for some reason there are a few doubles in the list so remove them
-        const uniqueServers = [...new Set(data)];
-        // sort servers alphabetically
-        const sortedServers = uniqueServers.sort((acc, cur) =>
-          acc.localeCompare(cur)
-        );
-        setServers(sortedServers);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+    useEffect(() => {
+        const unsub = auth.onAuthStateChanged(async authUser => {
+            if (authUser) {
+                try {
+                    const userRef = await createUserProfileDocument(authUser);
 
-    getServerList();
+                    userRef.onSnapshot(snapShot => {
+                        setUser({
+                            id: snapShot.id,
+                            ...snapShot.data(),
+                        });
+                    });
+                } catch (err) {
+                    console.error(err);
+                }
+            } else {
+                localStorage.removeItem('user');
+                setUser(null);
+            }
+        });
 
-    const unsub = auth.onAuthStateChanged(async authUser => {
-      if (authUser) {
-        try {
-          const userRef = await createUserProfileDocument(authUser);
+        const getServerList = async () => {
+            try {
+                const data = await xivapi.data.servers();
+                // for some reason there are a few doubles in the list so remove them
+                const uniqueServers = [...new Set(data)];
+                // sort servers alphabetically
+                const sortedServers = uniqueServers.sort((acc, cur) =>
+                    acc.localeCompare(cur)
+                );
+                setServers(sortedServers);
+            } catch (err) {
+                console.error(err);
+            }
+        };
 
-          userRef.onSnapshot(snapShot => {
-            setUser({
-              id: snapShot.id,
-              ...snapShot.data()
-            });
-          });
-        } catch (err) {
-          console.error(err);
-        }
-      } else {
-        localStorage.removeItem('user');
-        setUser(null);
-      }
-    });
+        getServerList();
 
-    return unsub;
-    // eslint-disable-next-line
-  }, []);
+        return unsub;
+        // eslint-disable-next-line
+    }, []);
 
-  return (
-    <div className='flex flex-col h-0 min-h-screen'>
-      <Navbar />
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/login' component={Login} />
-        <AuthRoute isAuth={user} path='/players' component={Players} />
-        <AuthRoute isAuth={user} path='/dashboard' component={Dashboard} />
-      </Switch>
-    </div>
-  );
+    return (
+        <div className='flex flex-col h-0 min-h-screen'>
+            <Navbar />
+            <Switch>
+                <Route exact path='/' component={Home} />
+                <Route path='/login' component={Login} />
+                <AuthRoute isAuth={user} path='/players' component={Players} />
+                <AuthRoute
+                    isAuth={user}
+                    path='/dashboard'
+                    component={Dashboard}
+                />
+            </Switch>
+        </div>
+    );
 };
 
 export default App;

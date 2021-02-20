@@ -1,92 +1,99 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Form, Formik } from 'formik';
+import * as Yup from 'yup';
+
 import { auth, signInWithGoogle } from '../../firebase';
 
-const LoginForm = ({ className = '', onToggleForm }) => {
-  const [loginForm, setLoginForm] = useState({
+import FormikField from '../FormikField';
+
+const initialValues = {
     email: '',
-    password: ''
-  });
+    password: '',
+};
 
-  const handleToggleForm = () => {
-    if (onToggleForm) onToggleForm();
-  };
+const validationSchema = Yup.object().shape({
+    email: Yup.string().required('Email is required'),
+    password: Yup.string().required('Password is required'),
+});
 
-  const handleOnChange = e => {
-    const { name, value } = e.currentTarget;
+const LoginForm = ({ className, onToggleForm }) => {
+    const handleToggleForm = () => {
+        if (onToggleForm) onToggleForm();
+    };
 
-    setLoginForm(prev => ({ ...prev, [name]: value }));
-  };
+    const handleSubmit = async ({ email, password }) => {
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-
-    await auth.signInWithEmailAndPassword(loginForm.email, loginForm.password);
-  };
-
-  const inputClasses = `border border-black rounded shadow p-2 mb-2`;
-
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className={`flex flex-col items-center p-2 justify-between border border-black shadow rounded ${className}`}
-    >
-      <div className='flex justify-center my-4'>
-        <h1 className='text-3xl font-medium'>Login</h1>
-      </div>
-      <label htmlFor='email' className='flex flex-col mb-1'>
-        Email:
-        <input
-          className={inputClasses}
-          type='email'
-          name='email'
-          id='email'
-          onChange={handleOnChange}
-        />
-      </label>
-      <label htmlFor='password' className='flex flex-col mb-1'>
-        Password:
-        <input
-          className={inputClasses}
-          type='password'
-          name='password'
-          id='password'
-          onChange={handleOnChange}
-        />
-      </label>
-      <div className='flex flex-col w-full'>
-        <button
-          type='submit'
-          className='bg-black text-white rounded shadow font-normal p-1 my-1'
+    return (
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
         >
-          Log In
-        </button>
-        <button
-          type='button'
-          onClick={signInWithGoogle}
-          className='text-white border border-black bg-red-700 p-1 my-1 cursor-pointer shadow rounded font-normal'
-        >
-          Sign In With Google
-        </button>
-      </div>
-      <div className='text-sm'>
-        <p>
-          Need an account?&nbsp;
-          <button
-            type='button'
-            onClick={handleToggleForm}
-            className='outline-none text-blue-600'
-          >
-            Sign up!
-          </button>
-        </p>
-      </div>
-    </form>
-  );
+            <Form
+                className={`flex flex-col items-center p-2 justify-between border border-black shadow rounded ${className}`}
+            >
+                <div className='flex justify-center my-4'>
+                    <h1 className='text-3xl font-medium'>Login</h1>
+                </div>
+                <FormikField
+                    label='Email'
+                    type='email'
+                    name='email'
+                    // id='email'
+                    className='p-2 mb-2'
+                />
+                <FormikField
+                    label='Password'
+                    type='password'
+                    // id='password'
+                    name='password'
+                    className='p-2 mb-2'
+                />
+                <div className='flex flex-col w-full'>
+                    <button
+                        type='submit'
+                        className='bg-black text-white rounded shadow font-normal p-1 my-1'
+                    >
+                        Log In
+                    </button>
+                    <button
+                        type='button'
+                        onClick={signInWithGoogle}
+                        className='text-white border border-black bg-red-700 p-1 my-1 cursor-pointer shadow rounded font-normal'
+                    >
+                        Sign In With Google
+                    </button>
+                </div>
+                <div className='text-sm'>
+                    <p>
+                        Need an account?&nbsp;
+                        <button
+                            type='button'
+                            onClick={handleToggleForm}
+                            className='outline-none text-blue-600'
+                        >
+                            Sign up!
+                        </button>
+                    </p>
+                </div>
+            </Form>
+        </Formik>
+    );
+};
+
+LoginForm.defaultProps = {
+    className: '',
 };
 
 LoginForm.propTypes = {
-  className: PropTypes.string
+    className: PropTypes.string,
+    onToggleForm: PropTypes.func,
 };
 
 export default LoginForm;

@@ -21,7 +21,8 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4",
-    "xivapi-js": "^0.3.0"
+    "xivapi-js": "^0.3.0",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "craco start",
