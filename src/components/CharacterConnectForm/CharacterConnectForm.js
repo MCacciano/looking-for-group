@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import useGlobalContext from '../../hooks/useGlobalContext';
 
 import FormikField from '../FormikField/';
+import Button from '../Button';
 
 const initialValues = {
     forename: '',
@@ -53,12 +54,12 @@ const CharacterConnectForm = ({ onSubmit, className = '' }) => {
                         </option>
                     ))}
                 </FormikField>
-                <button
+                <Button
                     type='submit'
                     className='border border-black bg-blue-600 text-white font-medium rounded shadow my-2 py-1 px-2'
                 >
                     Connect
-                </button>
+                </Button>
             </Form>
         </Formik>
     );

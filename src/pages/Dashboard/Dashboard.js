@@ -5,8 +5,9 @@ import { ReactComponent as CopyIcon } from '../../assets/icons/edit-copy.svg';
 import useXivApi from '../../hooks/useXivApi';
 import useGlobalContext from '../../hooks/useGlobalContext';
 
-import Modal from '../../components/Modal/Modal';
-import CharacterConnectForm from '../../components/CharacterConnectForm/CharacterConnectForm';
+import Modal from '../../components/Modal';
+import Button from '../../components/Button';
+import CharacterConnectForm from '../../components/CharacterConnectForm';
 
 const Dashboard = () => {
     const { xivapi } = useXivApi();
@@ -92,13 +93,12 @@ const Dashboard = () => {
 
     return !user.character ? (
         <div className='absolute inset-0 flex justify-center items-center p-2'>
-            <button
-                type='button'
+            <Button
                 className='border border-black bg-blue-600 text-white rounded shadow p-2'
                 onClick={handleConnectCharacter}
             >
                 Connect Character
-            </button>
+            </Button>
             <Modal
                 className='p-4 max-w-screen-sm'
                 show={show}
@@ -118,15 +118,11 @@ const Dashboard = () => {
                 <CharacterConnectForm onSubmit={handleOnSubmit} />
                 <div className='w-full mt-3'>
                     <div className='flex border border-gray-500 rounded shadow hover:bg-blue-600 hover:text-white cursor-pointer'>
-                        <button
-                            type='button'
-                            className='flex-1'
-                            onClick={handleCopyCode}
-                        >
+                        <Button className='flex-1' onClick={handleCopyCode}>
                             <h3 className='font-rubik font-medium p-2'>
                                 {user.characterConnectCode}
                             </h3>
-                        </button>
+                        </Button>
                         <div className='h-full w-5 mx-4 my-auto'>
                             <CopyIcon className='fill-current' />
                         </div>

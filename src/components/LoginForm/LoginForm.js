@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { auth, signInWithGoogle } from '../../firebase';
 
 import FormikField from '../FormikField';
+import Button from '../Button/Button';
 
 const initialValues = {
     email: '',
@@ -45,41 +46,39 @@ const LoginForm = ({ className, onToggleForm }) => {
                     label='Email'
                     type='email'
                     name='email'
-                    // id='email'
+                    id='email'
                     className='p-2 mb-2'
                 />
                 <FormikField
                     label='Password'
                     type='password'
-                    // id='password'
+                    id='password'
                     name='password'
                     className='p-2 mb-2'
                 />
                 <div className='flex flex-col w-full'>
-                    <button
+                    <Button
                         type='submit'
-                        className='bg-black text-white rounded shadow font-normal p-1 my-1'
+                        className='bg-black text-white rounded shadow font-normal my-1'
                     >
                         Log In
-                    </button>
-                    <button
-                        type='button'
+                    </Button>
+                    <Button
                         onClick={signInWithGoogle}
-                        className='text-white border border-black bg-red-700 p-1 my-1 cursor-pointer shadow rounded font-normal'
+                        className='text-white border border-black bg-red-700 my-1'
                     >
                         Sign In With Google
-                    </button>
+                    </Button>
                 </div>
                 <div className='text-sm'>
                     <p>
                         Need an account?&nbsp;
-                        <button
-                            type='button'
+                        <Button
                             onClick={handleToggleForm}
                             className='outline-none text-blue-600'
                         >
                             Sign up!
-                        </button>
+                        </Button>
                     </p>
                 </div>
             </Form>
