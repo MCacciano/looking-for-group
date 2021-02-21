@@ -4,6 +4,8 @@ import { auth } from '../../firebase';
 
 import Button from '../Button';
 
+// TODO: Add close on click outside functionality
+
 const Navbar = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const [isOpen, setIsOpen] = useState(false);
@@ -48,11 +50,11 @@ const Navbar = () => {
                                 </li>
                                 <li className='border-b border-black'>
                                     <NavLink
-                                        to='/players'
+                                        to='/finder'
                                         className='p-2 block h-full'
                                         activeClassName='font-bold bg-black text-white'
                                     >
-                                        Players
+                                        Finder
                                     </NavLink>
                                 </li>
                                 <li>

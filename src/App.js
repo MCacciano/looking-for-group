@@ -13,7 +13,8 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Players from './pages/Players';
+import Finder from './pages/Finder';
+import User from './pages/User';
 
 const App = () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -68,7 +69,8 @@ const App = () => {
             <Switch>
                 <Route exact path='/' component={Home} />
                 <Route path='/login' component={Login} />
-                <AuthRoute isAuth={user} path='/players' component={Players} />
+                <AuthRoute isAuth={user} path='/finder' component={Finder} />
+                <AuthRoute isAuth={user} path='/user/:id' component={User} />
                 <AuthRoute
                     isAuth={user}
                     path='/dashboard'
