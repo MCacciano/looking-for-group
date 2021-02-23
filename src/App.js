@@ -15,13 +15,18 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Finder from './pages/Finder';
 import User from './pages/User';
+import useUserContext from './hooks/useUserContext';
 
 const App = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const { setUser, setServers } = useGlobalContext();
+    const { setServers } = useGlobalContext();
+    const { user, setUser } = useUserContext();
     const { xivapi } = useXivApi();
 
     useEffect(() => {
+        const localStorageUser = JSON.parse(localStorage.getItem('user'));
+
+        if (!user && localStorageUser) setUser(localStorageUser);
+
         const unsub = auth.onAuthStateChanged(async authUser => {
             if (authUser) {
                 try {

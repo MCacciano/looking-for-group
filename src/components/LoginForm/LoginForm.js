@@ -58,14 +58,16 @@ const LoginForm = ({ className, onToggleForm }) => {
                 />
                 <div className='flex flex-col w-full'>
                     <Button
+                        intent='primary'
                         type='submit'
-                        className='bg-black text-white rounded shadow font-normal my-1'
+                        className='shadow font-normal my-1 rounded'
                     >
                         Log In
                     </Button>
                     <Button
+                        intent='danger'
                         onClick={signInWithGoogle}
-                        className='text-white border border-black bg-red-700 my-1'
+                        className='shadow font-normal my-1 rounded'
                     >
                         Sign In With Google
                     </Button>
@@ -74,6 +76,7 @@ const LoginForm = ({ className, onToggleForm }) => {
                     <p>
                         Need an account?&nbsp;
                         <Button
+                            intent='transparent'
                             onClick={handleToggleForm}
                             className='outline-none text-blue-600'
                         >

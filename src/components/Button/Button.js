@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types';
 
-const Button = ({ type, className, children, ...props }) => {
-    // TODO: Write a useIntent hook that will color the button based on the intent
-    // ex: "none" -> gray
-    //          "default": 300
-    //          "hover": 400
-    //          "active": 400
-    //          "border": 400
-    //          "text": black
-    //     "primary" -> blue
-    //     "success" -> green
-    //     "failure" -> red
+import useIntent from '../../hooks/useIntent';
+
+const Button = ({ intent, type, className, children, ...props }) => {
+    const {
+        bgColor,
+        hoverColor,
+        activeColor,
+        borderColor,
+        textColor,
+    } = useIntent(intent);
 
     return (
         <button
             type={type}
-            className={`cursor-pointer shadow rounded font-normal focus:outline-none p-1 ${className}`}
+            className={`cursor-pointer font-normal border border-${borderColor} text-${textColor} bg-${bgColor} hover:bg-${hoverColor} active:bg-${activeColor} focus:outline-none p-1 ${className}`}
             {...props}
         >
             {children}
@@ -25,12 +24,14 @@ const Button = ({ type, className, children, ...props }) => {
 
 Button.defaultProps = {
     type: 'button',
+    intent: 'none',
     className: '',
 };
 
 Button.propTypes = {
-    className: PropTypes.string,
+    intent: PropTypes.string,
     type: PropTypes.string,
+    className: PropTypes.string,
     children: PropTypes.node,
 };
 
