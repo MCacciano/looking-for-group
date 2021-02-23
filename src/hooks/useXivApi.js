@@ -1,15 +1,18 @@
 import XIVAPI from 'xivapi-js';
+import useUserContext from './useUserContext';
 
 const useXivApi = () => {
     const xivapi = new XIVAPI({ private_key: process.env.XIV_API_KEY });
+
+    const { user } = useUserContext();
 
     const verifyCharacter = code => {
         console.log('code :>> ', code);
         console.log(
             'user.characterConnectCode :>> ',
-            user.characterConnectCode
+            user?.characterConnectCode
         );
-        return code === user.characterConnectCode;
+        return code === user?.characterConnectCode;
     };
 
     const getCharacter = async form => {
