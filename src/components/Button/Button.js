@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import useIntent from '../../hooks/useIntent';
 
-const Button = ({ intent, type, className, children, ...props }) => {
+const Button = ({ intent, type, className, children, onClick }) => {
     const {
         bgColor,
         hoverColor,
@@ -14,8 +14,8 @@ const Button = ({ intent, type, className, children, ...props }) => {
     return (
         <button
             type={type}
+            onClick={onClick}
             className={`cursor-pointer font-normal border border-${borderColor} text-${textColor} bg-${bgColor} hover:bg-${hoverColor} active:bg-${activeColor} focus:outline-none p-1 ${className}`}
-            {...props}
         >
             {children}
         </button>
@@ -33,6 +33,7 @@ Button.propTypes = {
     type: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.node,
+    onClick: PropTypes.func,
 };
 
 export default Button;
